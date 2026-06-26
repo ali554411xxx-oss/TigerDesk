@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}الاشتراك — {{ platform_name }}{% endblock %}
+
+{% block content %}
+<section class="subscribe-page">
+    <div class="price-card">
+        <span class="eyebrow">الاشتراك الشهري</span>
+        <p class="price"><span class="price-number">{{ price }}</span><span class="price-currency">$</span></p>
+        <p class="price-note">يتجدد كل ٣٠ يوم</p>
+    </div>
+
+    <div class="payment-card">
+        <h2>١. حوّل المبلغ</h2>
+        <ul class="payment-details">
+            <li><span>عبر بنكك / ماي كاشي إلى:</span></li>
+            <li><strong>الاسم:</strong> {{ bankak_name }}</li>
+            <li><strong>الحساب:</strong> {{ bankak_number }}</li>
+        </ul>
+
+        <h2>٢. بعد التحويل، سجّل بياناتك</h2>
+        <form action="{{ url_for('request_activation') }}" method="POST" class="activation-form">
+            <label for="name">اسمك / اسم نشاطك</label>
+            <input type="text" id="name" name="name" required placeholder="مثلاً: مطعم النخيل">
+
+            <label for="contact">رقم واتساب للتواصل</label>
+            <input type="text" id="contact" name="contact" required placeholder="مثلاً: 0912345678">
+
+            <button type="submit" class="btn-primary">تأكيد التحويل</button>
+        </form>
+
+        <p class="payment-alt">
+            أو تواصل مباشرة عبر واتساب وبعت صورة الإيصال:
+            <a href="{{ whatsapp_link }}" target="_blank" rel="noopener">فتح واتساب</a>
+        </p>
+    </div>
+</section>
+{% endblock %}

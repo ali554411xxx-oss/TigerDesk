@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}تم الاستلام — {{ platform_name }}{% endblock %}
+
+{% block content %}
+<section class="thanks-page">
+    <h1>تم استلام بياناتك ✅</h1>
+    <p>بنتأكد من التحويل ونفعّل اشتراكك خلال ساعات قليلة.</p>
+    <a href="{{ whatsapp_link }}" target="_blank" rel="noopener" class="btn-primary">
+        تواصل معنا الآن عبر واتساب
+    </a>
+</section>
+{% endblock %}

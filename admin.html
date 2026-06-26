@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}لوحة التحكم{% endblock %}
+
+{% block content %}
+<section class="admin-page">
+    <h1>الاشتراكات المعلّقة</h1>
+    {% if pending %}
+    <table class="admin-table">
+        <thead>
+            <tr><th>الاسم</th><th>التواصل</th><th>التاريخ</th><th></th></tr>
+        </thead>
+        <tbody>
+            {% for sub in pending %}
+            <tr>
+                <td>{{ sub.customer_name }}</td>
+                <td>{{ sub.contact }}</td>
+                <td>{{ sub.created_at[:10] }}</td>
+                <td>
+                    <form method="POST" action="{{ url_for('activate', sub_id=sub.id) }}">
+                        <button type="submit" class="btn-small">تفعيل ✅</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>ما في طلبات معلّقة حالياً.</p>
+    {% endif %}
+
+    <h1>الاشتراكات النشطة</h1>
+    {% if active %}
+    <table class="admin-table">
+        <thead>
+            <tr><th>الاسم</th><th>التواصل</th><th>تنتهي في</th></tr>
+        </thead>
+        <tbody>
+            {% for sub in active %}
+            <tr>
+                <td>{{ sub.customer_name }}</td>
+                <td>{{ sub.contact }}</td>
+                <td>{{ sub.expires_at[:10] if sub.expires_at else '-' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>ما في اشتراكات نشطة حالياً.</p>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}{{ platform_name }} — مساعدك الذكي لإدارة عملائك{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-stripe" aria-hidden="true"></div>
+    <div class="hero-content">
+        <p class="eyebrow">مستشفيات · مطاعم · فنادق</p>
+        <h1>ذكاء اصطناعي يرد على عملائك<br>حتى وانت نايم</h1>
+        <p class="hero-sub">
+            منصة بسيطة تساعد نشاطك يرد على استفسارات العملاء أوتوماتيك،
+            على مدار الساعة، بأقل تكلفة.
+        </p>
+        <a href="{{ url_for('subscribe') }}" class="btn-primary">ابدأ الاشتراك — {{ price }}$ / شهرياً</a>
+    </div>
+</section>
+
+<section class="features">
+    <div class="feature-card">
+        <h3>رد فوري</h3>
+        <p>عميلك يسأل، والذكاء الاصطناعي يرد فوراً بدون انتظار.</p>
+    </div>
+    <div class="feature-card">
+        <h3>ساعات شغل مخصصة</h3>
+        <p>تحدد متى يشتغل البوت، وبره الدوام يحول العميل لفريقك مباشرة.</p>
+    </div>
+    <div class="feature-card">
+        <h3>دعم محلي</h3>
+        <p>دفع عبر بنكك أو ماي كاشي، ودعم مباشر عبر واتساب.</p>
+    </div>
+</section>
+{% endblock %}
