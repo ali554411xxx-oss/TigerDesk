@@ -11,11 +11,11 @@ SUBSCRIPTION_PRICE_USD = "5"
 
 # رقم واتساب لاستقبال إيصالات الدفع والدعم (بصيغة دولية بدون + أو 00)
 # مثال: لو رقمك 0912345678 يكتب 249912345678
-WHATSAPP_NUMBER = "249XXXXXXXXX"
+WHATSAPP_NUMBER = "2490119327458"
 
 # بيانات حساب بنكك / ماي كاشي لاستقبال التحويلات
-BANKAK_ACCOUNT_NAME = "اسمك هنا"
-BANKAK_ACCOUNT_NUMBER = "رقم حسابك هنا"
+BANKAK_ACCOUNT_NAME = "شريف علي"
+BANKAK_ACCOUNT_NUMBER = "688816"
 
 # مفتاح Flask السري (اقرأه من متغير بيئة، وفي التطوير المحلي يستخدم قيمة افتراضية)
 SECRET_KEY = os.getenv("SECRET_KEY", "dev-secret-change-me")
