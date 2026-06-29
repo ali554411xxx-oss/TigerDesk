@@ -7,10 +7,11 @@ app.py - النسخة الأولى المبسطة من المنصة.
 """
 import os
 from datetime import datetime, timedelta, timezone
-from flask import Flask, render_template, request, redirect, url_for, abort
+from flask import Flask, render_template, request, redirect, url_for, abort, jsonify, session
 
 import config
 import database
+import ai_service
 
 app = Flask(__name__)
 app.secret_key = config.SECRET_KEY
@@ -65,6 +66,45 @@ def request_activation():
         platform_name=config.PLATFORM_NAME,
         whatsapp_link=f"https://wa.me/{config.WHATSAPP_NUMBER}",
     )
+
+
+# ---------------------------------------------------------------------------
+# ديمو الذكاء الاصطناعي - يقدر أي عميل محتمل يجربو مباشرة من الموقع
+# ---------------------------------------------------------------------------
+@app.route("/demo")
+def demo():
+    return render_template(
+        "demo.html",
+        platform_name=config.PLATFORM_NAME,
+        business_name=config.DEMO_BUSINESS_NAME,
+    )
+
+
+@app.route("/api/demo-chat", methods=["POST"])
+def demo_chat():
+    data = request.get_json(silent=True) or {}
+    user_message = (data.get("message") or "").strip()
+
+    if not user_message:
+        return jsonify({"reply": "اكتب سؤالك الأول 🙂"}), 400
+
+    if len(user_message) > 500:
+        return jsonify({"reply": "السؤال طويل شوية، حاول تلخصو أكتر."}), 400
+
+    history = session.get("demo_history", [])
+
+    reply = ai_service.get_ai_reply(
+        api_key=config.GEMINI_API_KEY,
+        system_instruction=config.DEMO_AI_INSTRUCTIONS,
+        user_message=user_message,
+        history=history,
+    )
+
+    history.append({"role": "user", "text": user_message})
+    history.append({"role": "model", "text": reply})
+    session["demo_history"] = history[-10:]  # نحتفظ بآخر 10 رسائل بس
+
+    return jsonify({"reply": reply})
 
 
 # ---------------------------------------------------------------------------
